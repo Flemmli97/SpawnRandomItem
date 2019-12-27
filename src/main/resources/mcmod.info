@@ -1,0 +1,12 @@
+[{
+  "modid": "randomitem",
+  "name": "RandomItem",
+  "description": "Simple mod to spawn in random items",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateJSON": "",
+  "authorList": ["Flemmli97"],
+  "credits": "",
+  "logoFile": ""
+}]
