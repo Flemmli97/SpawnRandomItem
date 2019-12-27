@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod(modid = RandomItem.MODID, name = RandomItem.MODNAME, version = RandomItem.VERSION, guiFactory = "com.flemmli97.randomitem.GuiFactory")
+@Mod(modid = RandomItem.MODID, name = RandomItem.MODNAME, version = RandomItem.VERSION, acceptableRemoteVersions = "*", guiFactory = "com.flemmli97.randomitem.GuiFactory")
 public class RandomItem {
 
     public static final String MODID = "randomitem";
@@ -27,7 +27,6 @@ public class RandomItem {
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent e) {
-        Config.load();
         MinecraftForge.EVENT_BUS.register(this);
     }
 
@@ -37,6 +36,7 @@ public class RandomItem {
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent e) {
+        Config.load();
     }
     
     @SubscribeEvent

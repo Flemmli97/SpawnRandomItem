@@ -8,6 +8,7 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.config.Configuration;
@@ -17,8 +18,9 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 public class Config {
 
     public static Configuration config;
-    public static List<String> blackList = Lists.newArrayList("minecraft:command_block", "minecraft:structure_void", "minecraft:structure_block"
-        , "minecraft:barrier", "minecraft:mob_spawner", "minecraft:enchanted_book", "minecraft:chain_command_block", "minecraft:repeating_command_block");
+    public static List<String> blackList = Lists.newArrayList("minecraft:command_block", "minecraft:structure_void", "minecraft:structure_block",
+            "minecraft:barrier", "minecraft:mob_spawner", "minecraft:enchanted_book", "minecraft:chain_command_block", "minecraft:repeating_command_block",
+            "minecraft:filled_map", "minecraft:knowledge_book", "minecraft:written_book", "minecraft:bedrock", "minecraft:command_block_minecart");
     public static boolean whiteList;
     private static ItemStack[] items = null;
 
@@ -33,7 +35,7 @@ public class Config {
         
         NonNullList<ItemStack> list = NonNullList.create();
         ForgeRegistries.ITEMS.getValuesCollection().forEach(item->{
-            if(whiteList?blackList.contains(item.getRegistryName().toString()):!blackList.contains(item.getRegistryName().toString()))
+            if(whiteList?contains(item):!contains(item))
                 if(item==Items.ENCHANTED_BOOK) {
                     for(CreativeTabs tab : CreativeTabs.CREATIVE_TAB_ARRAY)
                         if(tab!=CreativeTabs.SEARCH)
@@ -47,7 +49,10 @@ public class Config {
         items = list.toArray(new ItemStack[0]);
         config.save();
     }
-        
+    
+    private static boolean contains(Item item) {
+        return blackList.contains(item.getRegistryName().toString()) || blackList.contains(item.getRegistryName().getResourceDomain());
+    }
     public static ItemStack getRandomItem(Random rand) {
         if(items==null)
             return ItemStack.EMPTY;
