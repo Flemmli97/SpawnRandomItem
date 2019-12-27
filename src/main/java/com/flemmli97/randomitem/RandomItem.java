@@ -21,10 +21,10 @@ public class RandomItem {
     public static final String MODNAME = "RandomItem";
     public static final String VERSION = "${@VERSION}";
     public static final Logger logger = LogManager.getLogger(RandomItem.MODNAME);
-        
+
     @Instance
     public static RandomItem instance = new RandomItem();
-    
+
     @EventHandler
     public void preInit(FMLPreInitializationEvent e) {
         MinecraftForge.EVENT_BUS.register(this);
@@ -38,17 +38,15 @@ public class RandomItem {
     public void postInit(FMLPostInitializationEvent e) {
         Config.load();
     }
-    
+
     @SubscribeEvent
-    public void config(OnConfigChangedEvent event)
-    {
+    public void config(OnConfigChangedEvent event) {
         if(event.getModID().equals(RandomItem.MODID))
             Config.load();
     }
-    
+
     @EventHandler
     public void serverStart(FMLServerStartingEvent event) {
         event.registerServerCommand(new CommandSpawnItem());
     }
 }
-    

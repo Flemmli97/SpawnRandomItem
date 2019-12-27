@@ -17,34 +17,29 @@ import net.minecraftforge.fml.client.config.DummyConfigElement.DummyCategoryElem
 
 public class GuiFactory implements IModGuiFactory {
 
-	@Override
-	public void initialize(Minecraft minecraftInstance) {}
+    @Override
+    public void initialize(Minecraft minecraftInstance) {
+    }
 
-	@Override
-	public boolean hasConfigGui() {
-		return true;
-	}
+    @Override
+    public boolean hasConfigGui() {
+        return true;
+    }
 
-	@Override
-	public GuiScreen createConfigGui(GuiScreen parentScreen) {
-		return new GuiConfig(parentScreen, this.list(Config.config), RandomItem.MODID, false, false, RandomItem.MODNAME);
-	}
-	
-	private List<IConfigElement> list(Configuration... configs)
-    {
+    @Override
+    public GuiScreen createConfigGui(GuiScreen parentScreen) {
+        return new GuiConfig(parentScreen, this.list(Config.config), RandomItem.MODID, false, false, RandomItem.MODNAME);
+    }
+
+    private List<IConfigElement> list(Configuration... configs) {
         List<IConfigElement> list = Lists.newArrayList();
-        for(Configuration config : configs)
-        {
-            for(String cat : config.getCategoryNames())
-            {
+        for(Configuration config : configs){
+            for(String cat : config.getCategoryNames()){
                 ConfigCategory category = config.getCategory(cat);
-                if(cat.isEmpty())
-                {
+                if(cat.isEmpty()){
                     list.addAll(new ConfigElement(category).getChildElements());
-                }
-                else
-                {
-                    if (category.isChild())
+                }else{
+                    if(category.isChild())
                         continue;
                     DummyCategoryElement element = new DummyCategoryElement(category.getName(), category.getLanguagekey(), new ConfigElement(category).getChildElements());
                     element.setRequiresMcRestart(category.requiresMcRestart());
@@ -56,8 +51,8 @@ public class GuiFactory implements IModGuiFactory {
         return list;
     }
 
-	@Override
-	public Set<RuntimeOptionCategoryElement> runtimeGuiCategories() {
-		return null;
-	}
+    @Override
+    public Set<RuntimeOptionCategoryElement> runtimeGuiCategories() {
+        return null;
+    }
 }
